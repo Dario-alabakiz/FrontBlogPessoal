@@ -4,8 +4,12 @@
 }
 
 .img{
-    width: 800px;
-    height: 900px;
+    width: 700px;
+    height: 800px;
     display: block;
     margin: 0 auto;
+}
+
+.texto{
+    text-align: center;
 }

@@ -53,8 +53,8 @@ function Home() {
         <img
           src="./src/assets/img/blog.jpg"
           alt=""
-          width="700px"
-          height="420px"
+          width="500px"
+          height="520px"
         />
       </Grid>
       <Grid xs={12} style={{ backgroundColor: "white" }}></Grid>

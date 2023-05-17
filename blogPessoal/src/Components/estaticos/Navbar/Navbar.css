@@ -1,0 +1,14 @@
+.cursor{
+    cursor: pointer;
+    color: white
+}
+
+.navbar{
+    background: linear-gradient(36deg, #1e90ff 8%, #8a2be2 89%)!important;
+}
+
+.text-decorator-none{
+    text-decoration: none;
+}
+
+

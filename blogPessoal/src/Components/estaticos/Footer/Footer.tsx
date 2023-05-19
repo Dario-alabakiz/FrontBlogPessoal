@@ -1,4 +1,5 @@
 import React from "react";
+import "./Footer.css";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -15,7 +16,7 @@ function Footer() {
         alignItems="center"
       >
         <Grid alignItems="center" item xs={12}>
-          <Box style={{ backgroundColor: "#3F51B5", height: "120px" }}>
+          <Box className="box1">
             <Box
               paddingTop={1}
               display="flex"
@@ -26,33 +27,33 @@ function Footer() {
                 variant="h5"
                 align="center"
                 gutterBottom
-                style={{ color: "white" }}
+                className="textos"
               >
                 Siga-nos nas redes sociais{" "}
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" justifyContent="center">
               <a href="https://github.com/Dario-alabakiz" target="_blank">
-                <GitHubIcon style={{ fontSize: 60, color: "white" }} />
+                <GitHubIcon className="redes" />
               </a>
               <a href="https://contate.me/dario-alabakiz" target="_blank">
-                <WhatsAppIcon style={{ fontSize: 60, color: "white" }} />
+                <WhatsAppIcon className="redes" />
               </a>
               <a
                 href="https://www.linkedin.com/in/dario-pereira-alabakiz/"
                 target="_blank"
               >
-                <LinkedInIcon style={{ fontSize: 60, color: "white" }} />
+                <LinkedInIcon className="redes" />
               </a>
             </Box>
           </Box>
-          <Box style={{ backgroundColor: "#303F9F", height: "60px" }}>
+          <Box className="box2">
             <Box paddingTop={1}>
               <Typography
                 variant="subtitle2"
                 align="center"
                 gutterBottom
-                style={{ color: "white" }}
+                className="textos"
               >
                 © 2023 Copyright:
               </Typography>
@@ -62,7 +63,7 @@ function Footer() {
                 <Typography
                   variant="subtitle2"
                   gutterBottom
-                  style={{ color: "white" }}
+                  className="textos"
                   align="center"
                 >
                   Dario Alabakiz

@@ -1,14 +1,54 @@
-import React from "react";
-import "./Login.css";
-import { Grid, Box, Typography, TextField, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import './Login.css';
+import { Grid, Box, Typography, TextField, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { UsuarioLogin } from '../../models/UsuarioLogin';
+import { login } from '../../service/Service';
+import useLocalStorage from 'react-use-localstorage';
 
 function Login() {
+
+  const navigate = useNavigate();
+  const [token, setToken] = useLocalStorage('token');
+  const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    senha: '',
+    foto: '',
+    token: '',
+    });
+
+    function updateModel(event: ChangeEvent<HTMLInputElement>) {
+      setUsuarioLogin({
+        ...usuarioLogin,
+        [event.target.name]: event.target.value,
+      });
+    }
+
+    async function enviar(event: ChangeEvent<HTMLFormElement>) {
+      event.preventDefault();
+      try {
+        await login('/usuarios/logar', usuarioLogin, setToken);
+        alert('Usuario logado com sucesso');
+      } catch (error) {
+        alert('Usuário e/ou senha inválidos');
+      }
+    }
+  
+    // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
+    useEffect(() => {
+      if (token !== '') {
+        navigate('/home');
+      }
+    }, [token]);
+  
+
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Grid alignItems="center" item xs={6}>
         <Box paddingX={20}>
-          <form>
+          <form onSubmit={enviar}>
             <Typography
               variant="h3"
               gutterBottom
@@ -18,7 +58,7 @@ function Login() {
             >
               Login
             </Typography>
-            <TextField
+            <TextField value={usuarioLogin.usuario} onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
               id="usuario"
               label="Nome de usuário"
               variant="outlined"
@@ -26,7 +66,7 @@ function Login() {
               margin="normal"
               fullWidth
             />
-            <TextField
+            <TextField value={usuarioLogin.senha} onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
               id="senha"
               label="Senha"
               type="password"
@@ -35,27 +75,23 @@ function Login() {
               margin="normal"
               fullWidth
             />
-          </form>
-        </Box>
-        <Box marginTop={2} textAlign="center">
-          <Link to="/home" className="text-decorator-none">
+            <Box marginTop={2} textAlign="center">
             <Button type="submit" variant="contained" color="primary">
               Logar
             </Button>
-          </Link>
+          </Box>
+          </form>
+        
           <Box display='flex' justifyContent='center' marginTop={2}>
             <Box>
-              <Typography variant="subtitle1" gutterBottom align="center"> tem uma conta? </Typography>
+            <Typography variant="body1" align="center">
+                Ainda não tem uma conta? <Link to="/cadastroUsuario" style={{textDecoration: 'underline'}}>Cadastre-se</Link>
+              </Typography>
             </Box>
-            <Typography variant="subtitle1" gutterBottom align="center" style={{fontWeight: 'bold'}}>Cadastre-se</Typography>
           </Box>
-          <Grid xs={6} style={{
-        backgroundImage: 'url(https://br.pinterest.com/pin/753086368955188998/)' ,backgroundRepeat:'no-repeat',
-          width: "100vh", backgroundSize: 'cover', backgroundPosition: 'center'
-      }}>
-
+          </Box>
+          <Grid xs={6} className="imagem">
       </Grid>
-        </Box>
       </Grid>
     </Grid>
   );

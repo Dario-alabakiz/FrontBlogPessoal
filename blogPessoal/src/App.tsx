@@ -5,6 +5,9 @@ import Footer from "./Components/estaticos/Footer/Footer";
 import Home from "./paginas/home/Home";
 import Login from "./paginas/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CadastroUsuario from "./paginas/cadastroUsuario/CadastroUsuario";
+import ListaPostagens from "./Components/Postagens/listaPostagens/ListaPostagens";
+import ListaTema from "./Components/Temas/listaTema/ListaTema";
 
 function App() {
   return (
@@ -15,8 +18,17 @@ function App() {
           {" "}
           // Antigo Switch
           <Route path="/" element={<Login />} />
+
           <Route path="/login" element={<Login />} />
+
           <Route path="/home" element={<Home />} />
+
+          <Route path="/cadastroUsuario" element={<CadastroUsuario />}/>
+
+          <Route path="/Postagens" element={<ListaPostagens/>}/>
+
+          <Route path="/Temas" element={<ListaTema/>}/>
+          
         </Routes>
       </div>
       <Footer />

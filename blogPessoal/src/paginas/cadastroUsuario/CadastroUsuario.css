@@ -1,0 +1,15 @@
+.imagem2{
+    background-image: url(https://br.pinterest.com/pin/753086368955188998/) ;
+    background-repeat:no-repeat;
+    width: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.textos2{
+    font-weight:bold !important;
+}
+
+.btCancelar{
+    margin-right: 20px !important;
+}

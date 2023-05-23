@@ -41,13 +41,14 @@ function Login() {
       if (token !== '') {
         navigate('/home');
       }
+     
     }, [token]);
   
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid alignItems="center" item xs={6}>
-        <Box paddingX={20}>
+    <Grid container direction="row" justifyContent="center" alignItems="center" >
+      <Grid alignItems="center" item xs={6} >
+        <Box paddingX={20} >
           <form onSubmit={enviar}>
             <Typography
               variant="h3"
@@ -82,7 +83,7 @@ function Login() {
           </Box>
           </form>
         
-          <Box display='flex' justifyContent='center' marginTop={2}>
+          <Box display='flex' justifyContent='center' marginTop={2} >
             <Box>
             <Typography variant="body1" align="center">
                 Ainda não tem uma conta? <Link to="/cadastroUsuario" style={{textDecoration: 'underline'}}>Cadastre-se</Link>

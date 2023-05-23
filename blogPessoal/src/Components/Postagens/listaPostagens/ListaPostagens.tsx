@@ -8,7 +8,7 @@ import Postagem from '../../../models/Postagem';
 import { busca } from '../../../service/Service';
 import { useNavigate } from 'react-router-dom';
 
-function ListaPostagens() {
+function ListaPostagem() {
 
   const[ postagens, setPostagens] = useState<Postagem[]>([])
   const[ token, setToken] = useLocalStorage("token");

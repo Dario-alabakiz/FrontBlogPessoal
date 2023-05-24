@@ -5,7 +5,7 @@ baseURL: "https://blogpessoal-t7fk.onrender.com"
 })
 export const login = async (url: any, dados:any, setDados: any) =>{
 const resposta = await api.post(url, dados)
-setDados(resposta)
+setDados(resposta.data.token)
 }
 
 export const cadastrarUsuario = async (url: string, dados: object, setDados: any) => {
@@ -17,3 +17,22 @@ export const cadastrarUsuario = async (url: string, dados: object, setDados: any
     const resposta = await api.get(url, header)
     setDados(resposta.data)
   }
+
+  export const buscaId = async (url: any, setDados:any ,header: any) => {
+    const resposta = await api.get(url, header)
+    setDados(resposta.data)
+  }
+
+  export const post = async (url: any, dados: any ,setDados:any ,header: any) => {
+    const resposta = await api.post(url, dados, header)
+    setDados(resposta.data)
+  }
+
+  export const put = async (url: any, dados: any ,setDados:any ,header: any) => {
+    const resposta = await api.put(url, dados, header)
+    setDados(resposta.data)
+  }
+
+  export const deleteId = async(url: any,header: any) => { 
+    await api.delete(url,header)
+}

@@ -23,7 +23,7 @@ navigate('/login');
 }, [token])
 
 async function getPostagem(){
-await busca("/Postagem", setPostagens,{
+await busca("/postagens", setPostagens,{
 headers: {
 'Authorization': token
 }

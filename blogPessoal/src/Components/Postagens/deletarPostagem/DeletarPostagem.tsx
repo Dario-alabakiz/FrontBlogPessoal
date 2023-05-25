@@ -10,14 +10,17 @@ import { Box } from "@mui/material";
 import "./DeletarPostagem.css";
 import Postagem from "../../../models/Postagem";
 import { buscaId, deleteId } from "../../../service/Service";
-import useLocalStorage from "react-use-localstorage";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
 
 function DeletarPostagem() {
   const [postagem, setPostagem] = useState<Postagem[]>([]);
   const { id } = useParams<{ id: string }>();
-  const [token, setToken] = useLocalStorage("token");
   const navigate = useNavigate();
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
 
   useEffect(() => {
     if (token == "") {
@@ -43,7 +46,7 @@ function DeletarPostagem() {
   function sim() {
     navigate("/postagens");
     deleteId(`/postagens/${id}`, {
-      header: {
+      headers: {
         Authorization: token,
       },
     });

@@ -9,15 +9,18 @@ import {
 import { Box } from "@mui/material";
 import "./DeletarTema.css";
 import { useNavigate, useParams } from "react-router-dom";
-import useLocalStorage from "react-use-localstorage";
 import { buscaId, deleteId } from "../../../service/Service";
 import Tema from "../../../models/Tema";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
 
 function DeletarTema() {
   const [tema, setTema] = useState<Tema[]>([]);
   const { id } = useParams<{ id: string }>();
-  const [token, setToken] = useLocalStorage("token");
   const navigate = useNavigate();
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
 
   useEffect(() => {
     if (token == "") {
@@ -43,7 +46,7 @@ function DeletarTema() {
   function sim() {
     navigate("/temas");
     deleteId(`/temas/${id}`, {
-      header: {
+      headers: {
         Authorization: token,
       },
     });
@@ -61,12 +64,15 @@ function DeletarTema() {
         <Card variant="outlined">
           <CardContent>
             <Box justifyContent="center">
+
               <Typography color="textSecondary" gutterBottom>
                 Deseja deletar o Tema:
               </Typography>
+              
               <Typography color="textSecondary">{tema?.descricao}</Typography>
             </Box>
           </CardContent>
+
           <CardActions>
             <Box display="flex" justifyContent="start" ml={1.0} mb={2}>
               <Box mx={2}>
@@ -76,19 +82,20 @@ function DeletarTema() {
                   className="marginLeft"
                   size="large"
                   color="primary"
-                >
-                  Sim
-                </Button>
+                
+                >Sim</Button>
+
               </Box>
+              
               <Box mx={2}>
                 <Button
                   onClick={nao}
                   variant="contained"
                   size="large"
                   color="secondary"
-                >
-                  Não
-                </Button>
+                
+                >Não</Button>
+
               </Box>
             </Box>
           </CardActions>

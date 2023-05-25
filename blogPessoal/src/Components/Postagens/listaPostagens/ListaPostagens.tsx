@@ -3,16 +3,19 @@ import "./ListaPostagens.css";
 import { Link } from 'react-router-dom'
 import {Card, CardActions, CardContent, Button, Typography } from '@material-ui/core';
 import {Box} from '@mui/material';
-import useLocalStorage from 'react-use-localstorage';
 import Postagem from '../../../models/Postagem';
 import { busca } from '../../../service/Service';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 function ListaPostagens() {
 
   const[ postagens, setPostagens] = useState<Postagem[]>([])
-  const[ token, setToken] = useLocalStorage("token");
   const navigate = useNavigate();
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
 
 
 useEffect(() =>{
@@ -57,14 +60,14 @@ useEffect(() => {
       <CardActions>
         <Box display="flex" justifyContent="center" mb={1.5} >
 
-          <Link to={'/formularioTema/${tema.id}'} className="text-decorator-none">
+          <Link to={`/formularioPostagem/${postagem.id}`} className="text-decorator-none">
             <Box mx={1}>
               <Button variant="contained" className="marginLeft" size='small' color="primary" >
                 atualizar
               </Button>
             </Box>
           </Link>
-          <Link to={'/deletarTema/${tema.id}'} className="text-decorator-none">
+          <Link to={`/deletarPostagens/${postagem.id}`} className="text-decorator-none">
             <Box mx={1}>
               <Button variant="contained" size='small' color="secondary">
                 deletar

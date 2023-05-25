@@ -4,13 +4,16 @@ import { Box } from "@mui/material";
 import "./Home.css";
 import TabPostagens from "../../Components/Postagens/tabPostagens/TabPostagens";
 import ModalPostagem from "../../Components/Postagens/modalPostagem/ModalPostagem";
-import useLocalStorage from "react-use-localstorage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { TokenState } from "../../store/tokens/tokensReducer";
 
 function Home() {
 
   const navigate = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState["tokens"]>(
+    (state) => state.tokens
+  );
   
   useEffect(() => {
     if (token == "") {
@@ -37,9 +40,9 @@ function Home() {
             component="h3"
             align="center"
             className="titulo"
-          >
-            Seja bem vindo(a)!
-          </Typography>
+          
+          >Seja bem vindo(a)!</Typography>
+
           <Typography
             variant="h5"
             gutterBottom
@@ -47,20 +50,22 @@ function Home() {
             component="h5"
             align="center"
             className="titulo"
-          >
-            expresse aqui os seus pensamentos e opiniões!
-          </Typography>
+
+          >expresse aqui os seus pensamentos e opiniões!</Typography>
+
         </Box>
         <Box display="flex" justifyContent="center">
           <Box marginRight={1}>
             <ModalPostagem/>
           </Box>
+          <Link to='/postagens'>
           <Button
             variant="outlined"
             className="botao"
-          >
-            Ver Postagens
-          </Button>
+
+          >Ver Postagens</Button>
+
+          </Link>
         </Box>
       </Grid>
       <Grid item xs={6}>

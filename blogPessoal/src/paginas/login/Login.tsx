@@ -4,12 +4,14 @@ import { Grid, Box, Typography, TextField, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { UsuarioLogin } from '../../models/UsuarioLogin';
 import { login } from '../../service/Service';
-import useLocalStorage from 'react-use-localstorage';
+import { useDispatch } from 'react-redux';
+import { addToken } from '../../store/tokens/action';
 
 function Login() {
 
   const navigate = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const dispatch = useDispatch();
+  const [token, setToken] = useState('');
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
     id: 0,
     nome: '',
@@ -39,9 +41,10 @@ function Login() {
     // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
     useEffect(() => {
       if (token !== '') {
+        dispatch(addToken(token))
         navigate('/home');
       }
-     
+    
     }, [token]);
   
 

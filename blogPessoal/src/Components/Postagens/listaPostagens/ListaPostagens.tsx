@@ -45,8 +45,10 @@ useEffect(() => {
     <Card variant="outlined">
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Tema
+
+        Tema
         </Typography>
+
         <Typography variant="h5" component="h2">
         {postagem.titulo}
         </Typography>
@@ -56,6 +58,10 @@ useEffect(() => {
         <Typography variant="body2" component="p">
         {postagem.tema?.descricao}
         </Typography>
+        <Typography variant="body2" component="p">
+        Postado por: {postagem.usuario?.nome}
+        </Typography>
+
       </CardContent>
       <CardActions>
         <Box display="flex" justifyContent="center" mb={1.5} >
@@ -63,14 +69,18 @@ useEffect(() => {
           <Link to={`/formularioPostagem/${postagem.id}`} className="text-decorator-none">
             <Box mx={1}>
               <Button variant="contained" className="marginLeft" size='small' color="primary" >
+              
                 atualizar
+            
               </Button>
             </Box>
           </Link>
           <Link to={`/deletarPostagens/${postagem.id}`} className="text-decorator-none">
             <Box mx={1}>
               <Button variant="contained" size='small' color="secondary">
+              
                 deletar
+              
               </Button>
             </Box>
           </Link>

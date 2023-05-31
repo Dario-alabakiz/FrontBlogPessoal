@@ -14,11 +14,14 @@ import CadastroPostagem from "./Components/Postagens/cadastroPostagem/CadastroPo
 import DeletarTema from "./Components/Temas/deletarTema/DeletarTema";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
   return (
     <Provider store={store}>
+      <ToastContainer />
     <BrowserRouter>
       <Navbar />
       <div style={{ minHeight: "100vh" }}>

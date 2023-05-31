@@ -17,18 +17,34 @@ import Postagem from "../../../models/Postagem";
 import { busca, buscaId, post, put } from "../../../service/Service";
 import { useSelector } from "react-redux";
 import { TokenState } from "../../../store/tokens/tokensReducer";
+import Usuario from "../../../models/Usuario";
+import { toast } from "react-toastify";
 
 function CadastroPostagem() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [temas, setTemas] = useState<Tema[]>([]);
+  //buscar token dentro do redux
   const token = useSelector<TokenState, TokenState["tokens"]>(
     (state) => state.tokens
+  );
+  //buscar id dentro do redux
+  const userId = useSelector<TokenState, TokenState["id"]>(
+    (state) => state.id
   );
 
   useEffect(() => {
     if (token == "") {
-      alert("Você precisa estar logado");
+      toast.success('Deu tudo certo', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        theme: "colored",
+        progress: undefined,
+    });
       navigate("/login");
     }
   }, [token]);
@@ -43,12 +59,23 @@ function CadastroPostagem() {
     texto: "",
     data: "",
     tema: null,
+    usuario: null,
+    //add para inserir o usuário dono da postagem
+  });
+  const [usuario, setUsuario] = useState<Usuario>({
+    id: +userId,
+    nome: "",
+    usuario: "",
+    foto: "",
+    senha: "",
   });
 
   useEffect(() => {
     setPostagem({
       ...postagem,
       tema: tema,
+      usuario: usuario,
+      // add user dentro de post q está sendo enviado ao back 
     });
   }, [tema]);
 

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UsuarioLogin } from '../../models/UsuarioLogin';
 import { login } from '../../service/Service';
 import { useDispatch } from 'react-redux';
-import { addToken } from '../../store/tokens/action';
+import { addId, addToken } from '../../store/tokens/action';
 
 function Login() {
 
@@ -13,6 +13,14 @@ function Login() {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    senha: '',
+    foto: '',
+    token: '',
+    });
+  const [respUsuarioLogin, setRespUsuarioLogin] = useState<UsuarioLogin>({
     id: 0,
     nome: '',
     usuario: '',
@@ -31,36 +39,53 @@ function Login() {
     async function enviar(event: ChangeEvent<HTMLFormElement>) {
       event.preventDefault();
       try {
-        await login('/usuarios/logar', usuarioLogin, setToken);
+        //"setToken" caso precise recolocar
+        await login('/usuarios/logar', usuarioLogin, setRespUsuarioLogin); 
         alert('Usuario logado com sucesso');
       } catch (error) {
         alert('Usuário e/ou senha inválidos');
       }
     }
   
-    // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
+    /* caso precise recolocar "
     useEffect(() => {
       if (token !== '') {
         dispatch(addToken(token))
         navigate('/home');
       }
     
-    }, [token]);
-  
+    }, [token]);"
+*/
+ // Efeito que fica de olho no token, e quando chega algo diferente de vazio, navega o usuario pra home
+     //Pega o token e o id do json e guarda no redux 
+    useEffect(() => {
+      if (respUsuarioLogin.token !== '') {
+        dispatch(addToken(respUsuarioLogin.token))
+        dispatch(addId(respUsuarioLogin.id.toString()))
+        navigate('/home');
+      }
+    
+    }, [respUsuarioLogin.token]);
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center" >
+    <Grid 
+      className="container"
+      container direction="row" 
+      justifyContent="center" 
+      alignItems="center" >
       <Grid alignItems="center" item xs={6} >
-        <Box paddingX={20} >
-          <form onSubmit={enviar}>
+        <Box paddingX={20} className='card'>
+          <form onSubmit={enviar} className="form">
             <Typography
+              className="form-title"
               variant="h3"
               gutterBottom
               color="textPrimary"
               component="h3"
               align="center"
-            >
-              Login
+            
+            >Login
+
             </Typography>
             <TextField value={usuarioLogin.usuario} onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
               id="usuario"
@@ -79,14 +104,27 @@ function Login() {
               margin="normal"
               fullWidth
             />
-            <Box marginTop={2} textAlign="center">
-            <Button type="submit" variant="contained" color="primary">
+            <Box
+              className="form-input"
+              marginTop={2} 
+              textAlign="center">
+            <Button 
+              className='button'
+              type="submit" 
+              variant="contained" 
+              color="primary">
+
               Logar
+
             </Button>
           </Box>
           </form>
         
-          <Box display='flex' justifyContent='center' marginTop={2} >
+          <Box
+            
+            display='flex' 
+            justifyContent='center' 
+            marginTop={2} >
             <Box>
             <Typography variant="body1" align="center">
                 Ainda não tem uma conta? <Link to="/cadastroUsuario" style={{textDecoration: 'underline'}}>Cadastre-se</Link>
@@ -94,8 +132,7 @@ function Login() {
             </Box>
           </Box>
           </Box>
-          <Grid xs={6} className="imagem">
-      </Grid>
+         
       </Grid>
     </Grid>
   );
